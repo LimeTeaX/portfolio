@@ -1,43 +1,87 @@
-# Astro Starter Kit: Minimal
+# Portfolio Website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+> A personal engineering portfolio built with Astro, focused on case studies and technical writing.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🎯 Overview
 
-## 🚀 Project Structure
+This is my personal portfolio website showcasing my engineering projects, case studies, and technical notes. Built from scratch with a focus on:
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Content-first design** - No generic template sections
+- **Engineering thinking** - Every decision documented with tradeoffs
+- **Accessibility** - WCAG compliant, keyboard navigable
+- **Performance** - Static site, minimal JavaScript
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## 🛠️ Tech Stack
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+| Technology | Purpose |
+|------------|---------|
+| [Astro](https://astro.build) v6 | Static site generator |
+| TypeScript | Type safety |
+| CSS (Custom) | Styling with design tokens |
+| MDX | Content with React components |
+| Lucide React | Icons |
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 📁 Project Structure
 
-Any static assets, like images, can be placed in the `public/` directory.
+```bash
+src/
+├── components/                 # Reusable Astro components
+│   ├── icons/                  # Lucide icon wrappers
+│   │   ├── NoteIcon.astro
+│   │   ├── WarningIcon.astro
+│   │   └── InsightIcon.astro
+│   ├── MarginNote.astro        # Sidebar note component
+│   ├── DecisionTable.astro     # Tradeoff table
+│   └── CaseStudyLayout.astro   # Case study wrapper
+│
+├── content/                    # Content collections
+│   ├── case-studies/           # MDX files
+│   │   ├── 01-rate-limiting-system.md
+│   │   └── 02-ai-pair-programming-portfolio.mdx
+│   └── notes/                  # MDX files
+│       ├── 01-debugging-memory-leak.md
+│       ├── 02-why-i-stopped-using-redux.md
+│       └── 03-postgres-index-mistake.md
+│
+├── layouts/
+│   └── BaseLayout.astro
+│
+├── pages/
+│   ├── index.astro
+│   ├── about.astro
+│   ├── case-studies/
+│   │   ├── index.astro
+│   │   └── [...slug].astro
+│   └── notes/
+│       ├── index.astro
+│       └── [...slug].astro
+│
+├── styles/
+│   ├── global.css
+│   ├── grid.css
+│   ├── themes.css
+│   ├── navigation.css
+│   ├── footer.css
+│   ├── home.css
+│   └── about.css
+│
+├── content.config.ts
+└── env.d.ts
 
-## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+## Key Features
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- **MarginNote** - Sidebar notes for case studies (3 types: note, warning, insight)
+- **DecisionTable** - Table format for documenting technical tradeoffs
+- **Asymmetrical grid** - 12-column system with offset layouts
+- **Dark mode** - Bold theme with cyan accent
+- **Content collections** - Zod-validated MDX files
 
-## 👀 Want to learn more?
+## Getting Started
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```bash
+npm install
+npm run dev
+
+License
+MIT
