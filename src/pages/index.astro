@@ -1,14 +1,20 @@
 ---
 // src/pages/index.astro
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import '../styles/home.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import "../styles/home.css";
 
-const caseStudies = await getCollection('caseStudies');
-const featuredCaseStudy: CollectionEntry<'caseStudies'> | undefined = caseStudies[0];
+const caseStudies = await getCollection("caseStudies");
+const featuredCaseStudy =
+  caseStudies.find((c: any) => c.id.includes("ai-pair-programming")) ||
+  caseStudies[0];
+
+const allNotes = await getCollection("notes");
+const publishedNotes = allNotes.filter((note: any) => note.data.published === true);
+const recentNotes = publishedNotes.slice(0, 2);
 ---
 
-<BaseLayout title="Your Name — Engineering Portfolio">
+<BaseLayout title="Jackson Maju Tambunan — Engineering Portfolio">
   <div class="hero-section">
     <div class="content-offset-2">
       <h1>
@@ -22,54 +28,62 @@ const featuredCaseStudy: CollectionEntry<'caseStudies'> | undefined = caseStudie
     </div>
   </div>
 
-  {featuredCaseStudy && (
-    <div class="section">
-      <div class="content-main">
-        <h2>Featured case study</h2>
-        <article class="featured-case-study">
-          <h3>
-            <a href={`/case-studies/${featuredCaseStudy.id}`}>  {/* pake id, bukan slug */}
-              {featuredCaseStudy.data.title}
+  {
+    featuredCaseStudy && (
+      <div class="section">
+        <div class="content-main">
+          <h2>Featured case study</h2>
+          <article class="featured-case-study">
+            <h3>
+              <a href={`/case-studies/${featuredCaseStudy.id}`}>
+                {featuredCaseStudy.data.title}
+              </a>
+            </h3>
+            <p>{featuredCaseStudy.data.description}</p>
+            <div class="featured-meta">
+              <span>{featuredCaseStudy.data.techStack.join(", ")}</span>
+              <span class="separator">—</span>
+              <span>{featuredCaseStudy.data.constraint}</span>
+            </div>
+            <a href={`/case-studies/${featuredCaseStudy.id}`} class="read-more">
+              Read case study →
             </a>
-          </h3>
-          <p>{featuredCaseStudy.data.description}</p>
-          <div class="featured-meta">
-            <span>{featuredCaseStudy.data.techStack.join(', ')}</span>
-            <span class="separator">—</span>
-            <span>{featuredCaseStudy.data.constraint}</span>
-          </div>
-          <a href={`/case-studies/${featuredCaseStudy.id}`} class="read-more">
-            Read case study →
-          </a>
-        </article>
+          </article>
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
 
   <div class="section">
     <div class="two-columns">
       <div>
-        <h3>Recent thinking</h3>
+        <h3>Recent notes</h3>
         <ul class="note-list">
-          <li>
-            <a href="#">
-              <span class="note-title">Why I don't use Redis for everything</span>
-              <span class="note-date">Coming soon</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="note-title">Debugging a memory leak in production</span>
-              <span class="note-date">Coming soon</span>
-            </a>
-          </li>
+          {
+            recentNotes.map((note: any) => (
+              <li>
+                <a href={`/notes/${note.id}`}>
+                  <span class="note-title">{note.data.title}</span>
+                  <span class="note-date">
+                    {note.data.date.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div>
         <h3>Currently</h3>
         <p>
-          Building thoughtful systems. Available for <br />
-          <a href="mailto:your.email@example.com">senior engineering roles</a>.
+          Computer Science student building thoughtful systems. <br />
+          Looking for <a href="mailto:jacksonmajuoke@gmail.com"
+            >internship or junior developer roles</a
+          >.
         </p>
       </div>
     </div>
@@ -117,5 +131,32 @@ const featuredCaseStudy: CollectionEntry<'caseStudies'> | undefined = caseStudie
 
   .read-more:hover {
     text-decoration: underline;
+  }
+
+  .note-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .note-list li {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .note-list li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-decoration: none;
+  }
+
+  .note-title {
+    font-weight: 500;
+  }
+
+  .note-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
   }
 </style>

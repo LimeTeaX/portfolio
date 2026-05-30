@@ -1,5 +1,11 @@
 ---
 // src/layouts/BaseLayout.astro
+import "../styles/global.css";
+import "../styles/grid.css";
+import "../styles/navigation.css";
+import "../styles/footer.css";
+import "../styles/themes.css";
+
 export interface Props {
   title: string;
   description?: string;
@@ -12,31 +18,23 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-bold">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="Your Name" />
 
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
-    <link rel="stylesheet" href="/src/styles/grid.css" />
-    <link rel="stylesheet" href="/src/styles/navigation.css" />
-    <link rel="stylesheet" href="/src/styles/footer.css" />
 
     <title>{title}</title>
   </head>
@@ -60,10 +58,37 @@ const {
 
     <footer class="site-footer">
       <div class="footer-container">
-        <p>© {new Date().getFullYear()} Your Name</p>
-        <p>
-          <a href="mailto:your.email@example.com">your.email@example.com</a>
-        </p>
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h3 class="footer-logo">Jackson Maju Tambunan</h3>
+            <p class="footer-bio">
+              Computer Science student building <br />
+              thoughtful systems.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+              <li><a href="/case-studies">Case Studies</a></li>
+              <li><a href="/notes">Notes</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Connect</h4>
+            <ul class="footer-links">
+              <li><a href="mailto:jacksonmajuoke@gmail.com">Email</a></li>
+              <li><a href="https://github.com/LimeTeaX">GitHub</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© {new Date().getFullYear()} Jackson Maju Tambunan. Built with Astro.</p>
+        </div>
       </div>
     </footer>
   </body>

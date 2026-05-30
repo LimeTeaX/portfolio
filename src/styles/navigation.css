@@ -1,6 +1,4 @@
-/* src/styles/navigation.css */
 
-/* Skip link untuk aksesibilitas */
 .skip-link {
   position: absolute;
   top: -40px;
@@ -16,12 +14,11 @@
   top: 0;
 }
 
-/* Navigation */
 .site-nav {
   position: sticky;
   top: 0;
   background: var(--bg);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border);
   z-index: 50;
   padding: var(--space-md) 0;
 }
@@ -39,6 +36,7 @@
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 500;
+  color: var(--text-primary);
 }
 
 .nav-links {
@@ -50,6 +48,11 @@
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+.nav-links a:hover {
+  color: var(--accent);
 }
 
 @media (max-width: 768px) {

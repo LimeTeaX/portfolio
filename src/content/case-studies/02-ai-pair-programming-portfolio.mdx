@@ -1,0 +1,129 @@
+---
+title: "Building My First Real Portfolio as a Computer Science Student"
+date: 2025-01-20
+description: "How I used Astro, AI tools, and a lot of debugging to build a portfolio that doesn't look like a template"
+techStack: ["Astro", "TypeScript", "CSS", "ChatGPT", "DeepSeek"]
+constraint: "Learning Astro from scratch while building"
+timeline: "1 week"
+teamSize: "solo (with AI assistance)"
+published: true
+---
+
+## Problem
+
+I needed a portfolio website. Not another generic template with "Hi, I'm a passionate developer" and a skills grid. I wanted something that stands out.
+
+But I had two problems:
+
+1. **I'm still a student** - No senior engineer to review my code. No team to catch my mistakes.
+2. **I had to learn Astro first** - I never used it before. I learned while building.
+
+The goal wasn't perfection. The goal was to ship something real, document the process, and learn as much as possible.
+
+## Constraints
+
+- Solo developer (but with AI: ChatGPT, DeepSeek, Gemini)
+- Must learn Astro v6 from zero
+- Short deadline (wanted it done in a week)
+- No design background (I'm a CS student, not a designer)
+
+## Architecture
+
+<pre style={{ fontFamily: 'monospace', fontSize: '12px', lineHeight: '1.4', overflowX: 'auto', background: 'var(--code-bg)', padding: '1rem', borderRadius: '4px' }}>
+{`
+My Brain (learning Astro for the first time)
+     │
+     ▼
+┌─────────────────────────────────────┐
+│  AI Pair Programmers                │
+│  ┌─────────┐ ┌─────────┐ ┌────────┐ │
+│  │ChatGPT  │ │ Gemini  │ │DeepSeek│ │
+│  └─────────┘ └─────────┘ └────────┘ │
+└─────────────────────────────────────┘
+     │
+     ▼
+┌─────────────────────────────────────┐
+│  Documentation (The Blueprint)      │
+│  - vision.md, brand.md, design.md   │
+│  - Every decision documented         │
+└─────────────────────────────────────┘
+     │
+     ▼
+┌─────────────────────────────────────┐
+│  The Actual Code (Astro + CSS)      │
+│  - Learned by doing                 │
+│  - Broke things, fixed things       │
+└─────────────────────────────────────┘
+`}
+</pre>
+
+## Decision Log
+
+| Decision | Alternative | Why chosen | Consequence |
+|----------|-------------|------------|-------------|
+| Document everything before coding | Just start coding | I knew I would forget decisions | Took 2 days just for docs |
+| Use Astro | Next.js, plain HTML | Static-first, good for content | Had to learn v6 changes |
+| Ask AI for help | Struggle alone | Faster learning, but need to verify | Got outdated syntax sometimes |
+| Dark mode + cyan accent | Light mode | Looks modern, easier on eyes at night | Works well |
+| No theme toggle | 5-theme toggle | Removed after realizing it's a gimmick | Wasted 1 day, learned CSS specificity |
+
+## What Broke (Multiple Times)
+
+**The API Key Incident:**
+
+I once built an anime finder app for a class project. It failed because I kept forgetting which API key went where. The error was simple: wrong environment variable. But debugging took 3 hours because I forgot what I had already checked.
+
+Lesson: Document your environment variables. Future you will forget.
+
+**The Astro v6 Migration:**
+
+I followed a tutorial for Astro v5. But Astro v6 changed how content collections work. The AI gave me v5 syntax. We spent hours on an error that was just "the config file moved."
+
+Lesson: Always ask AI "is this for the latest version?"
+
+**The Theme Toggle Loop:**
+
+I built a 5-theme toggle with localStorage. It didn't work. Fixed it. Still didn't work. Debugged for hours. Finally worked with `!important`. 
+
+Then I realized recruiters don't need theme toggles. They just want to read my case studies. Deleted it all.
+
+AI's response: "That's actually good engineering - deleting code is progress."
+
+## Results
+
+- Portfolio built in 1 week (learning Astro along the way)
+- Every decision documented (saved me multiple times when I forgot)
+- Learned Astro deeply (because I kept breaking it)
+- Discovered my workflow: docs → AI → implement → document what broke
+
+## Lessons Learned
+
+1. **Documentation isn't extra work - it's my memory**
+   Those `.md` files saved me when I forgot why I made a decision.
+
+2. **AI is helpful but not always right**
+   It writes code fast. It also writes wrong code fast. Always double-check.
+
+3. **Deleted code is not wasted time**
+   The theme toggle taught me about CSS specificity and localStorage. Then I removed it. Still learned.
+
+4. **Start with official docs, not tutorials**
+   Tutorials get outdated. The official Astro docs saved me multiple times.
+
+5. **"Solo but not alone"**
+   I work alone. But with AI, I always have someone to rubber-duck debug with.
+
+## What I Would Do Differently
+
+- Start with Astro v6 documentation first (not v5 tutorials)
+- Skip the theme toggle from day 1
+- Write more comments (because I forget what my code does)
+- Save all AI conversations (they became my "memory")
+
+## The Honest Truth
+
+I'm still a student. This is my first real portfolio. It's not perfect. Some CSS might break on your phone. The first case study is still a generic example.
+
+But the process is documented. The decisions have reasoning. And I built it while being honest about my limitations - learning Astro from zero, debugging with AI, and sometimes deleting features that weren't needed.
+
+Isn't that what engineering is? Working within constraints and documenting the tradeoffs?

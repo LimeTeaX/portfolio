@@ -1,7 +1,7 @@
 ---
 // src/components/MarginNote.astro
 // Signature component untuk portfolio
-// 
+//
 // Penggunaan:
 // <MarginNote type="note">
 //   This decision aged poorly. In production, the token bucket
@@ -12,9 +12,9 @@
 // - type: "note" | "warning" | "insight" (default: "note")
 // - showIcon: boolean (default: true)
 
-import NoteIcon from './icons/NoteIcon.astro';
-import WarningIcon from './icons/WarningIcon.astro';
-import InsightIcon from './icons/InsightIcon.astro';
+import NoteIcon from "./icons/NoteIcon.astro";
+import WarningIcon from "./icons/WarningIcon.astro";
+import InsightIcon from "./icons/InsightIcon.astro";
 
 export interface Props {
   type?: "note" | "warning" | "insight";
@@ -33,11 +33,13 @@ const IconComponent = showIcon ? iconComponents[type] : null;
 ---
 
 <aside class={`margin-note margin-note--${type}`} aria-label="Margin note">
-  {showIcon && IconComponent && (
-    <span class="margin-note__icon" aria-hidden="true">
-      <IconComponent />
-    </span>
-  )}
+  {
+    showIcon && IconComponent && (
+      <span class="margin-note__icon" aria-hidden="true">
+        <IconComponent />
+      </span>
+    )
+  }
   <div class="margin-note__content">
     <slot />
   </div>
@@ -45,13 +47,12 @@ const IconComponent = showIcon ? iconComponents[type] : null;
 
 <style>
   .margin-note {
-    position: sticky;
-    top: 100px;
+    position: relative;
     font-size: 0.875rem;
     line-height: 1.5;
     padding: var(--space-sm) var(--space-md);
     border-left: 3px solid;
-    margin-bottom: var(--space-md);
+    margin-bottom: 0;
     background-color: rgba(0, 0, 0, 0.02);
   }
 
@@ -107,17 +108,6 @@ const IconComponent = showIcon ? iconComponents[type] : null;
     display: inline;
   }
 
-  /* Desktop: sticky */
-  @media (min-width: 1024px) {
-    .margin-note {
-      position: sticky;
-      top: 100px;
-      margin-top: 0;
-      margin-bottom: var(--space-lg);
-    }
-  }
-
-  /* Mobile: inline, tidak sticky */
   @media (max-width: 1024px) {
     .margin-note {
       position: relative;

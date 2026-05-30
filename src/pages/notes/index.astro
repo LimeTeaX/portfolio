@@ -1,0 +1,120 @@
+---
+// src/pages/notes/index.astro
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allNotes = await getCollection('notes');
+const publishedNotes = allNotes.filter((note) => note.data.published === true);
+const sortedNotes = publishedNotes.sort((a, b) => 
+  b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Notes — Technical Writing">
+  <div class="section">
+    <div class="content-offset-2">
+      <h1>Notes</h1>
+      <p class="lead">
+        Short-form engineering insights, debugging stories, and tool reviews.
+      </p>
+    </div>
+  </div>
+
+  <div class="notes-list">
+    {sortedNotes.map((note: CollectionEntry<'notes'>) => (
+      <article class="note-preview">
+        <div class="note-preview__meta">
+          <time datetime={note.data.date.toISOString()}>
+            {note.data.date.toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </time>
+          <span class="reading-time">• {note.data.readingTime} min read</span>
+        </div>
+        
+        <h2 class="note-preview__title">
+          <a href={`/notes/${note.id}`}>
+            {note.data.title}
+          </a>
+        </h2>
+        
+        <p class="note-preview__description">
+          {note.data.description}
+        </p>
+        
+        <div class="note-preview__tags">
+          {note.data.tags.map((tag: string) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  .notes-list {
+    margin-top: var(--space-xl);
+  }
+
+  .note-preview {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .note-preview:last-child {
+    border-bottom: none;
+  }
+
+  .note-preview__meta {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-mono);
+  }
+
+  .reading-time {
+    color: var(--text-secondary);
+  }
+
+  .note-preview__title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .note-preview__title a {
+    text-decoration: none;
+  }
+
+  .note-preview__title a:hover {
+    color: var(--accent);
+  }
+
+  .note-preview__description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .note-preview__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 0.25rem 0.5rem;
+  }
+</style>

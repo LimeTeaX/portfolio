@@ -1,5 +1,4 @@
 ---
-// src/pages/case-studies/index.astro
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
@@ -36,7 +35,7 @@ const sortedCaseStudies = [...caseStudies].sort((a: CollectionEntry<'caseStudies
             <span>{caseStudy.data.timeline}</span>
           </div>
           <h2 class="case-study-preview__title">
-            <a href={`/case-studies/${caseStudy.id}`}>  {/* pake id, bukan slug */}
+            <a href={`/case-studies/${caseStudy.id}`}>
               {caseStudy.data.title}
             </a>
           </h2>

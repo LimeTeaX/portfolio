@@ -1,5 +1,4 @@
 ---
-// src/pages/case-studies/[...slug].astro
 import { getCollection, type CollectionEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseStudyLayout from '../../components/CaseStudyLayout.astro';
@@ -18,8 +17,6 @@ type Props = {
 };
 
 const { caseStudy } = Astro.props as Props;
-
-// Pake render dari astro:content
 const { Content } = await render(caseStudy);
 ---
 
@@ -56,16 +53,15 @@ const { Content } = await render(caseStudy);
 
     <div slot="notes">
       <MarginNote type="note">
-        This case study is from my work. The architecture
-        has been simplified for clarity, but the core decisions are accurate.
+        I documented everything because short-term memory loss means I will forget.
       </MarginNote>
 
       <MarginNote type="warning">
-        The timezone bug mentioned below was a production incident.
+        AI is helpful but sometimes gives outdated syntax (like Astro v5 config).
       </MarginNote>
 
       <MarginNote type="insight">
-        Key insight: Always validate time-based logic with integration tests.
+        The theme toggle took 4 hours to build and 5 minutes to delete. Worth it for learning CSS specificity.
       </MarginNote>
     </div>
   </CaseStudyLayout>
@@ -78,7 +74,7 @@ const { Content } = await render(caseStudy);
     gap: var(--space-md);
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border);
   }
 
   .meta-item {
@@ -122,41 +118,13 @@ const { Content } = await render(caseStudy);
   .case-study-content :global(pre) {
     margin: var(--space-md) 0;
     padding: var(--space-md);
-    background-color: #2d2d2d;
-    border-radius: 4px;
+    background-color: var(--code-bg);
     overflow-x: auto;
   }
 
   .case-study-content :global(code) {
     font-family: var(--font-mono);
     font-size: 0.875rem;
-  }
-
-  .case-study-content :global(ul), 
-  .case-study-content :global(ol) {
-    margin-bottom: var(--space-md);
-    padding-left: var(--space-lg);
-  }
-
-  .case-study-content :global(li) {
-    margin-bottom: var(--space-xs);
-  }
-
-  .case-study-content :global(table) {
-    width: 100%;
-    margin: var(--space-lg) 0;
-    border-collapse: collapse;
-  }
-
-  .case-study-content :global(th),
-  .case-study-content :global(td) {
-    border: 1px solid var(--border-light);
-    padding: var(--space-sm);
-    text-align: left;
-  }
-
-  .case-study-content :global(th) {
-    background-color: rgba(0, 0, 0, 0.03);
   }
 
   @media (max-width: 768px) {

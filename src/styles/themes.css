@@ -1,0 +1,14 @@
+
+html.theme-bold {
+  --bg: #0A0A0A;
+  --bg-secondary: #18181B;
+  --text-primary: #E5E5E5;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+  --accent: #22D3EE;
+  --accent-light: #67E8F9;
+  --accent-dark: #06B6D4;
+  --border: #27272A;
+  --code-bg: #1A1A1A;
+  --code-text: #E5E5E5;
+}

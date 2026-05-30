@@ -1,100 +1,59 @@
-/* src/styles/global.css */
 
-/* CSS Reset minimal */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Variables (design tokens) */
 :root {
-  /* Colors */
-  --bg: #f8f8f8;
-  --text-primary: #1a1a1a;
-  --text-secondary: #555555;
-  --accent: #e85d04;
-  --code-bg: #2d2d2d;
-  --code-text: #e5e5e5;
-  --border-light: #e0e0e0;
-
-  /* Spacing */
-  --space-xs: 0.5rem;   /* 8px */
-  --space-sm: 1rem;     /* 16px */
-  --space-md: 1.5rem;   /* 24px */
-  --space-lg: 2rem;     /* 32px */
-  --space-xl: 3rem;     /* 48px */
-  --space-2xl: 4rem;    /* 64px */
-  --space-3xl: 6rem;    /* 96px */
-
-  /* Typography */
-  --font-heading: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Instrument Sans', Inter, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  /* Line heights */
   --lh-tight: 1.2;
   --lh-normal: 1.6;
-  --lh-loose: 1.8;
-
-  /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --font-heading: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
 }
 
-/* Base styles */
 body {
   background-color: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: var(--lh-normal);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 500;
+  font-weight: 600;
   line-height: var(--lh-tight);
-  letter-spacing: -0.01em;
-}
-
-h1 {
-  font-size: 3rem;
-  margin-bottom: var(--space-lg);
-}
-
-h2 {
-  font-size: 2rem;
-  margin-top: var(--space-2xl);
-  margin-bottom: var(--space-md);
-}
-
-h3 {
-  font-size: 1.25rem;
-  margin-top: var(--space-lg);
-  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 p {
   margin-bottom: var(--space-md);
   max-width: 70ch;
+  color: var(--text-primary);
 }
 
-/* Links */
 a {
   color: var(--text-primary);
   text-decoration: none;
   transition: var(--transition-fast);
-  position: relative;
 }
 
 a:hover {
   color: var(--accent);
 }
 
-/* Underline effect untuk link di dalam konten */
 .content a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -105,17 +64,17 @@ a:hover {
   text-decoration-color: var(--accent);
 }
 
-/* Lists */
 ul, ol {
   margin-bottom: var(--space-md);
   padding-left: var(--space-lg);
+  color: var(--text-primary);
 }
 
 li {
   margin-bottom: var(--space-xs);
+  color: var(--text-primary);
 }
 
-/* Code */
 code {
   font-family: var(--font-mono);
   font-size: 0.875em;
@@ -135,9 +94,9 @@ pre {
 pre code {
   background: none;
   padding: 0;
+  color: var(--code-text);
 }
 
-/* Blockquote */
 blockquote {
   border-left: 3px solid var(--accent);
   padding-left: var(--space-md);
@@ -146,20 +105,17 @@ blockquote {
   color: var(--text-secondary);
 }
 
-/* Horizontal rule */
 hr {
   border: none;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border);
   margin: var(--space-xl) 0;
 }
 
-/* Images */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Container utility */
 .container {
   width: 100%;
   max-width: 1280px;
@@ -167,7 +123,6 @@ img {
   padding: 0 var(--space-md);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   body {
     font-size: 0.875rem;
@@ -186,7 +141,7 @@ img {
   }
 }
 
-/* Utility classes - no inline styles needed! */
+/* Utility classes */
 .section {
   margin-bottom: var(--space-3xl);
 }
@@ -201,6 +156,38 @@ img {
 
 .text-center {
   text-align: center;
+}
+
+/* Tabel styling untuk markdown */
+table {
+  width: 100%;
+  margin: var(--space-lg) 0;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  display: block;
+}
+
+th,
+td {
+  border: 1px solid var(--border);
+  padding: var(--space-md);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: rgba(34, 211, 238, 0.1);
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  th,
+  td {
+    padding: var(--space-sm);
+    font-size: 0.75rem;
+  }
 }
 
 .mt-0 { margin-top: 0; }

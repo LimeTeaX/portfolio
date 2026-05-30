@@ -1,7 +1,7 @@
 ---
 // src/components/CaseStudyLayout.astro
-// Layout khusus untuk case study dengan margin notes
-import BaseLayout from '../layouts/BaseLayout.astro';
+// Layout khusus untuk case study - TANPA BaseLayout (sudah dibungkus di halaman)
+import MarginNote from './MarginNote.astro';
 
 export interface Props {
   title: string;
@@ -12,26 +12,24 @@ export interface Props {
 const { title, date, description } = Astro.props;
 ---
 
-<BaseLayout title={title}>
-  <article class="case-study">
-    <header class="case-study__header">
-      <div class="content-offset-2">
-        <h1>{title}</h1>
-        {date && <time class="case-study__date" datetime={date}>{date}</time>}
-        {description && <p class="case-study__description">{description}</p>}
-      </div>
-    </header>
-
-    <div class="case-study__body margin-note-container">
-      <div class="margin-note-content">
-        <slot name="content" />
-      </div>
-      <aside class="margin-note-sidebar">
-        <slot name="notes" />
-      </aside>
+<article class="case-study">
+  <header class="case-study__header">
+    <div class="content-offset-2">
+      <h1>{title}</h1>
+      {date && <time class="case-study__date" datetime={date}>{date}</time>}
+      {description && <p class="case-study__description">{description}</p>}
     </div>
-  </article>
-</BaseLayout>
+  </header>
+
+  <div class="case-study__body margin-note-container">
+    <div class="margin-note-content">
+      <slot name="content" />
+    </div>
+    <aside class="margin-note-sidebar">
+      <slot name="notes" />
+    </aside>
+  </div>
+</article>
 
 <style>
   .case-study__header {

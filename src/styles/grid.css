@@ -1,13 +1,11 @@
-/* src/styles/grid.css */
 
-/* Grid system - 12 columns dengan offset */
+/* Grid system */
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--space-md);
 }
 
-/* Content utama - span 8 kolom, offset 2 (desktop) */
 .content-main {
   grid-column: 3 / span 8;
 }
@@ -87,27 +85,32 @@
   grid-template-columns: 2fr 1fr;
   gap: var(--space-xl);
   align-items: start;
+  position: relative;
 }
 
 .margin-note-content {
   min-width: 0;
+  overflow-x: hidden;
 }
 
 .margin-note-sidebar {
-  position: sticky;
-  top: 100px;
+  position: relative;
+  top: auto;
   align-self: start;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-/* Sembunyiin scrollbar tapi tetep bisa scroll */
-.margin-note-sidebar::-webkit-scrollbar {
-  width: 4px;
+.margin-note-sidebar .margin-note {
+  position: relative;
+  top: auto;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .margin-note-sidebar::-webkit-scrollbar-track {
-  background: var(--border-light);
+  background: var(--border);
   border-radius: 4px;
 }
 
@@ -120,7 +123,24 @@
 .margin-note-sidebar .margin-note {
   position: relative;
   top: auto;
-  margin-bottom: var(--space-lg);
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .margin-note-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .margin-note-sidebar {
+    position: relative;
+    top: auto;
+    display: block;
+  }
+  
+  .margin-note-sidebar .margin-note {
+    margin-bottom: var(--space-md);
+  }
 }
 
 /* Note terakhir gak usah margin bottom */
@@ -137,14 +157,10 @@
   .margin-note-sidebar {
     position: relative;
     top: auto;
-    max-height: none;
-    overflow-y: visible;
     display: block;
   }
   
-  .margin-note-content .margin-note {
-    display: block;
-    position: relative;
-    top: auto;
+  .margin-note-sidebar .margin-note {
+    margin-bottom: var(--space-md);
   }
 }

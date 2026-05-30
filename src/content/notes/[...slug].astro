@@ -1,11 +1,10 @@
 ---
+// src/pages/notes/[...slug].astro
 import { getCollection, type CollectionEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-
   const notes = await getCollection('notes');
-  
   return notes.map((note) => ({
     params: { slug: note.id },
     props: { note },
@@ -21,10 +20,10 @@ const { Content } = await render(note);
 ---
 
 <BaseLayout title={`${note.data.title} — Notes`}>
-  <article class="note-article">
+  <article class="note">
     <div class="content-offset-2">
-      <header class="note-header">
-        <div class="note-meta">
+      <header class="note__header">
+        <div class="note__meta">
           <time datetime={note.data.date.toISOString()}>
             {note.data.date.toLocaleDateString('en-US', { 
               year: 'numeric', 
@@ -38,35 +37,33 @@ const { Content } = await render(note);
         
         <h1>{note.data.title}</h1>
         
-        <div class="note-tags">
+        <div class="note__tags">
           {note.data.tags.map((tag: string) => (
             <span class="tag">{tag}</span>
           ))}
         </div>
       </header>
 
-      <div class="note-content">
+      <div class="note__content">
         <Content />
       </div>
 
-      <footer class="note-footer">
+      <footer class="note__footer">
         <hr />
-        <a href="/notes" class="back-link">← Back to all notes</a>
+        <p class="note__back">
+          <a href="/notes">← Back to all notes</a>
+        </p>
       </footer>
     </div>
   </article>
 </BaseLayout>
 
 <style>
-  .note-article {
-    margin: var(--space-2xl) 0;
-  }
-
-  .note-header {
+  .note__header {
     margin-bottom: var(--space-2xl);
   }
 
-  .note-meta {
+  .note__meta {
     font-size: 0.875rem;
     font-family: var(--font-mono);
     color: var(--text-secondary);
@@ -76,7 +73,7 @@ const { Content } = await render(note);
     align-items: center;
   }
 
-  .note-tags {
+  .note__tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
@@ -87,58 +84,62 @@ const { Content } = await render(note);
     font-size: 0.75rem;
     font-family: var(--font-mono);
     color: var(--text-secondary);
-    background-color: rgba(34, 211, 238, 0.1);
+    background-color: rgba(0, 0, 0, 0.03);
     padding: 0.25rem 0.5rem;
   }
 
-  .note-content {
+  .note__content {
     margin-top: var(--space-xl);
   }
 
-  .note-content :global(h2) {
+  .note__content :global(h2) {
     margin-top: var(--space-xl);
     margin-bottom: var(--space-md);
   }
 
-  .note-content :global(h3) {
+  .note__content :global(h3) {
     margin-top: var(--space-lg);
     margin-bottom: var(--space-sm);
   }
 
-  .note-content :global(p) {
+  .note__content :global(p) {
     margin-bottom: var(--space-md);
     line-height: 1.7;
   }
 
-  .note-content :global(pre) {
+  .note__content :global(pre) {
     margin: var(--space-md) 0;
     padding: var(--space-md);
-    background-color: var(--code-bg);
-    border-radius: 8px;
+    background-color: #2d2d2d;
+    border-radius: 4px;
     overflow-x: auto;
   }
 
-  .note-content :global(code) {
+  .note__content :global(code) {
     font-family: var(--font-mono);
     font-size: 0.875rem;
   }
 
-  .note-content :global(ul),
-  .note-content :global(ol) {
+  .note__content :global(ul),
+  .note__content :global(ol) {
     margin-bottom: var(--space-md);
     padding-left: var(--space-lg);
   }
 
-  .note-footer {
+  .note__content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+
+  .note__footer {
     margin-top: var(--space-2xl);
   }
 
-  .back-link {
+  .note__back a {
     color: var(--accent);
     text-decoration: none;
   }
 
-  .back-link:hover {
+  .note__back a:hover {
     text-decoration: underline;
   }
 </style>
