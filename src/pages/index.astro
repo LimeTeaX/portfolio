@@ -1,0 +1,121 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import '../styles/home.css';
+
+const caseStudies = await getCollection('caseStudies');
+const featuredCaseStudy: CollectionEntry<'caseStudies'> | undefined = caseStudies[0];
+---
+
+<BaseLayout title="Your Name — Engineering Portfolio">
+  <div class="hero-section">
+    <div class="content-offset-2">
+      <h1>
+        Engineering is choosing which problems to solve<br />
+        and which constraints to accept.
+      </h1>
+      <p class="lead">
+        I build systems that fail informatively, scale predictably,<br />
+        and document themselves where possible.
+      </p>
+    </div>
+  </div>
+
+  {featuredCaseStudy && (
+    <div class="section">
+      <div class="content-main">
+        <h2>Featured case study</h2>
+        <article class="featured-case-study">
+          <h3>
+            <a href={`/case-studies/${featuredCaseStudy.id}`}>  {/* pake id, bukan slug */}
+              {featuredCaseStudy.data.title}
+            </a>
+          </h3>
+          <p>{featuredCaseStudy.data.description}</p>
+          <div class="featured-meta">
+            <span>{featuredCaseStudy.data.techStack.join(', ')}</span>
+            <span class="separator">—</span>
+            <span>{featuredCaseStudy.data.constraint}</span>
+          </div>
+          <a href={`/case-studies/${featuredCaseStudy.id}`} class="read-more">
+            Read case study →
+          </a>
+        </article>
+      </div>
+    </div>
+  )}
+
+  <div class="section">
+    <div class="two-columns">
+      <div>
+        <h3>Recent thinking</h3>
+        <ul class="note-list">
+          <li>
+            <a href="#">
+              <span class="note-title">Why I don't use Redis for everything</span>
+              <span class="note-date">Coming soon</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="note-title">Debugging a memory leak in production</span>
+              <span class="note-date">Coming soon</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>Currently</h3>
+        <p>
+          Building thoughtful systems. Available for <br />
+          <a href="mailto:your.email@example.com">senior engineering roles</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .featured-case-study {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  .featured-case-study h3 {
+    margin-top: 0;
+    margin-bottom: var(--space-sm);
+  }
+
+  .featured-case-study h3 a {
+    text-decoration: none;
+  }
+
+  .featured-case-study h3 a:hover {
+    color: var(--accent);
+  }
+
+  .featured-meta {
+    margin: var(--space-md) 0;
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+  }
+
+  .separator {
+    margin: 0 var(--space-xs);
+  }
+
+  .read-more {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .read-more:hover {
+    text-decoration: underline;
+  }
+</style>

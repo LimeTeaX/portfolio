@@ -1,0 +1,168 @@
+---
+// src/pages/case-studies/[...slug].astro
+import { getCollection, type CollectionEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyLayout from '../../components/CaseStudyLayout.astro';
+import MarginNote from '../../components/MarginNote.astro';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('caseStudies');
+  return caseStudies.map((caseStudy) => ({
+    params: { slug: caseStudy.id },
+    props: { caseStudy },
+  }));
+}
+
+type Props = {
+  caseStudy: CollectionEntry<'caseStudies'>;
+};
+
+const { caseStudy } = Astro.props as Props;
+
+// Pake render dari astro:content
+const { Content } = await render(caseStudy);
+---
+
+<BaseLayout title={`${caseStudy.data.title} — Case Study`}>
+  <CaseStudyLayout 
+    title={caseStudy.data.title}
+    date={caseStudy.data.date.toISOString().split('T')[0]}
+    description={caseStudy.data.description}
+  >
+    <div slot="content">
+      <div class="case-study-meta">
+        <div class="meta-item">
+          <span class="meta-label">Tech Stack</span>
+          <span class="meta-value">{caseStudy.data.techStack.join(', ')}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Constraint</span>
+          <span class="meta-value">{caseStudy.data.constraint}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Timeline</span>
+          <span class="meta-value">{caseStudy.data.timeline}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Team Size</span>
+          <span class="meta-value">{caseStudy.data.teamSize}</span>
+        </div>
+      </div>
+
+      <article class="case-study-content">
+        <Content />
+      </article>
+    </div>
+
+    <div slot="notes">
+      <MarginNote type="note">
+        This case study is from my work. The architecture
+        has been simplified for clarity, but the core decisions are accurate.
+      </MarginNote>
+
+      <MarginNote type="warning">
+        The timezone bug mentioned below was a production incident.
+      </MarginNote>
+
+      <MarginNote type="insight">
+        Key insight: Always validate time-based logic with integration tests.
+      </MarginNote>
+    </div>
+  </CaseStudyLayout>
+</BaseLayout>
+
+<style>
+  .case-study-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .meta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .meta-value {
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+  }
+
+  .case-study-content {
+    margin-top: var(--space-lg);
+  }
+
+  .case-study-content :global(h2) {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .case-study-content :global(h3) {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .case-study-content :global(p) {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+  }
+
+  .case-study-content :global(pre) {
+    margin: var(--space-md) 0;
+    padding: var(--space-md);
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  .case-study-content :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+
+  .case-study-content :global(ul), 
+  .case-study-content :global(ol) {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+  }
+
+  .case-study-content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+
+  .case-study-content :global(table) {
+    width: 100%;
+    margin: var(--space-lg) 0;
+    border-collapse: collapse;
+  }
+
+  .case-study-content :global(th),
+  .case-study-content :global(td) {
+    border: 1px solid var(--border-light);
+    padding: var(--space-sm);
+    text-align: left;
+  }
+
+  .case-study-content :global(th) {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  @media (max-width: 768px) {
+    .case-study-meta {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+  }
+</style>

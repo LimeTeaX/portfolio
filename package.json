@@ -1,0 +1,23 @@
+{
+  "name": "d-project-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^6.4.2",
+    "lucide-react": "^1.17.0",
+    "lucide-static": "^1.17.0"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^6.0.1",
+    "sass": "^1.100.0"
+  }
+}

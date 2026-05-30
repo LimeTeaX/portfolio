@@ -1,0 +1,150 @@
+/* src/styles/grid.css */
+
+/* Grid system - 12 columns dengan offset */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-md);
+}
+
+/* Content utama - span 8 kolom, offset 2 (desktop) */
+.content-main {
+  grid-column: 3 / span 8;
+}
+
+/* Full width content */
+.content-full {
+  grid-column: 1 / -1;
+}
+
+/* Sidebar untuk margin notes */
+.content-sidebar {
+  grid-column: 11 / -1;
+}
+
+/* Variasi offset */
+.content-offset-1 {
+  grid-column: 2 / span 10;
+}
+
+.content-offset-2 {
+  grid-column: 3 / span 8;
+}
+
+.content-offset-3 {
+  grid-column: 4 / span 6;
+}
+
+/* Responsive: mobile semua jadi 1 kolom */
+@media (max-width: 1024px) {
+  .grid {
+    display: block;
+  }
+
+  .content-main,
+  .content-full,
+  .content-sidebar,
+  .content-offset-1,
+  .content-offset-2,
+  .content-offset-3 {
+    grid-column: auto;
+  }
+}
+
+/* Layout wrapper */
+.layout-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+/* Section spacing */
+.section {
+  margin-bottom: var(--space-3xl);
+}
+
+.section-sm {
+  margin-bottom: var(--space-xl);
+}
+
+/* Two column layout untuk desktop */
+.two-columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-xl);
+}
+
+@media (max-width: 1024px) {
+  .two-columns {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+/* Layout untuk case study dengan margin notes */
+.margin-note-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.margin-note-content {
+  min-width: 0;
+}
+
+.margin-note-sidebar {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+/* Sembunyiin scrollbar tapi tetep bisa scroll */
+.margin-note-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.margin-note-sidebar::-webkit-scrollbar-track {
+  background: var(--border-light);
+  border-radius: 4px;
+}
+
+.margin-note-sidebar::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
+}
+
+/* MarginNote di dalam sidebar */
+.margin-note-sidebar .margin-note {
+  position: relative;
+  top: auto;
+  margin-bottom: var(--space-lg);
+}
+
+/* Note terakhir gak usah margin bottom */
+.margin-note-sidebar .margin-note:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .margin-note-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .margin-note-sidebar {
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow-y: visible;
+    display: block;
+  }
+  
+  .margin-note-content .margin-note {
+    display: block;
+    position: relative;
+    top: auto;
+  }
+}

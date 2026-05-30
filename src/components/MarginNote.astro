@@ -1,0 +1,128 @@
+---
+// src/components/MarginNote.astro
+// Signature component untuk portfolio
+// 
+// Penggunaan:
+// <MarginNote type="note">
+//   This decision aged poorly. In production, the token bucket
+//   refill rate caused issues with timezone offsets.
+// </MarginNote>
+//
+// Props:
+// - type: "note" | "warning" | "insight" (default: "note")
+// - showIcon: boolean (default: true)
+
+import NoteIcon from './icons/NoteIcon.astro';
+import WarningIcon from './icons/WarningIcon.astro';
+import InsightIcon from './icons/InsightIcon.astro';
+
+export interface Props {
+  type?: "note" | "warning" | "insight";
+  showIcon?: boolean;
+}
+
+const { type = "note", showIcon = true } = Astro.props;
+
+const iconComponents = {
+  note: NoteIcon,
+  warning: WarningIcon,
+  insight: InsightIcon,
+};
+
+const IconComponent = showIcon ? iconComponents[type] : null;
+---
+
+<aside class={`margin-note margin-note--${type}`} aria-label="Margin note">
+  {showIcon && IconComponent && (
+    <span class="margin-note__icon" aria-hidden="true">
+      <IconComponent />
+    </span>
+  )}
+  <div class="margin-note__content">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .margin-note {
+    position: sticky;
+    top: 100px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    padding: var(--space-sm) var(--space-md);
+    border-left: 3px solid;
+    margin-bottom: var(--space-md);
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .margin-note--note {
+    border-left-color: var(--text-secondary);
+  }
+
+  .margin-note--warning {
+    border-left-color: var(--accent);
+    background-color: rgba(232, 93, 4, 0.05);
+  }
+
+  .margin-note--insight {
+    border-left-color: #2d6a4f;
+    background-color: rgba(45, 106, 79, 0.05);
+  }
+
+  .margin-note__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--space-xs);
+    flex-shrink: 0;
+  }
+
+  .margin-note__icon svg {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 2;
+  }
+
+  .margin-note--note .margin-note__icon svg {
+    stroke: var(--text-secondary);
+  }
+
+  .margin-note--warning .margin-note__icon svg {
+    stroke: var(--accent);
+  }
+
+  .margin-note--insight .margin-note__icon svg {
+    stroke: #2d6a4f;
+  }
+
+  .margin-note__content {
+    flex: 1;
+  }
+
+  .margin-note__content p {
+    margin-bottom: 0;
+  }
+
+  .margin-note__content p:first-child {
+    display: inline;
+  }
+
+  /* Desktop: sticky */
+  @media (min-width: 1024px) {
+    .margin-note {
+      position: sticky;
+      top: 100px;
+      margin-top: 0;
+      margin-bottom: var(--space-lg);
+    }
+  }
+
+  /* Mobile: inline, tidak sticky */
+  @media (max-width: 1024px) {
+    .margin-note {
+      position: relative;
+      top: auto;
+      margin: var(--space-md) 0;
+    }
+  }
+</style>

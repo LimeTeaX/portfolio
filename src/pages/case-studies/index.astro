@@ -1,0 +1,135 @@
+---
+// src/pages/case-studies/index.astro
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const caseStudies = await getCollection('caseStudies');
+const sortedCaseStudies = [...caseStudies].sort((a: CollectionEntry<'caseStudies'>, b: CollectionEntry<'caseStudies'>) => 
+  b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Case Studies — Engineering Narratives">
+  <div class="section">
+    <div class="content-offset-2">
+      <h1>Case Studies</h1>
+      <p class="lead">
+        Deep dives into architectural decisions, tradeoffs,
+        and what broke in production.
+      </p>
+    </div>
+  </div>
+
+  <div class="case-studies-list">
+    {sortedCaseStudies.map((caseStudy: CollectionEntry<'caseStudies'>) => (
+      <article class="case-study-preview">
+        <div class="case-study-preview__content">
+          <div class="case-study-preview__meta">
+            <time datetime={caseStudy.data.date.toISOString()}>
+              {caseStudy.data.date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </time>
+            <span class="separator">—</span>
+            <span>{caseStudy.data.timeline}</span>
+          </div>
+          <h2 class="case-study-preview__title">
+            <a href={`/case-studies/${caseStudy.id}`}>  {/* pake id, bukan slug */}
+              {caseStudy.data.title}
+            </a>
+          </h2>
+          <p class="case-study-preview__description">
+            {caseStudy.data.description}
+          </p>
+          <div class="case-study-preview__constraint">
+            <span class="constraint-label">Constraint:</span>
+            <span>{caseStudy.data.constraint}</span>
+          </div>
+          <div class="case-study-preview__tech">
+            {caseStudy.data.techStack.map((tech: string) => (
+              <span class="tech-tag">{tech}</span>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .lead {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  .case-studies-list {
+    margin-top: var(--space-xl);
+  }
+
+  .case-study-preview {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .case-study-preview:last-child {
+    border-bottom: none;
+  }
+
+  .case-study-preview__meta {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-mono);
+  }
+
+  .separator {
+    margin: 0 var(--space-xs);
+  }
+
+  .case-study-preview__title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .case-study-preview__title a {
+    text-decoration: none;
+  }
+
+  .case-study-preview__title a:hover {
+    color: var(--accent);
+  }
+
+  .case-study-preview__description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .case-study-preview__constraint {
+    margin-bottom: var(--space-sm);
+    font-size: 0.875rem;
+  }
+
+  .constraint-label {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .case-study-preview__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 0.25rem 0.5rem;
+  }
+</style>

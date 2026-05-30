@@ -1,0 +1,70 @@
+---
+// src/layouts/BaseLayout.astro
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Engineering portfolio - case studies and technical writing",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Your Name" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/grid.css" />
+    <link rel="stylesheet" href="/src/styles/navigation.css" />
+    <link rel="stylesheet" href="/src/styles/footer.css" />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link"> Skip to main content </a>
+
+    <nav class="site-nav">
+      <div class="nav-container">
+        <a href="/" class="nav-logo">Jackson Maju Tambunan</a>
+        <div class="nav-links">
+          <a href="/case-studies">Case Studies</a>
+          <a href="/notes">Notes</a>
+          <a href="/about">About</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main-content" class="layout-wrapper">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <p>© {new Date().getFullYear()} Your Name</p>
+        <p>
+          <a href="mailto:your.email@example.com">your.email@example.com</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

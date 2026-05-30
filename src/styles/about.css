@@ -1,0 +1,17 @@
+/* src/styles/about.css */
+
+.compact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.compact-list li {
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}

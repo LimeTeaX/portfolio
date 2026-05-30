@@ -1,0 +1,121 @@
+---
+// src/components/DecisionTable.astro
+// Tabel untuk decision log di case study
+
+export interface Decision {
+  decision: string;
+  alternative: string;
+  reason: string;
+  consequence: string;
+}
+
+export interface Props {
+  decisions: Decision[];
+  title?: string;
+}
+
+const { decisions, title = "Decision Log" } = Astro.props;
+---
+
+<div class="decision-table-wrapper">
+  {title && <h3 class="decision-table__title">{title}</h3>}
+  
+  <div class="decision-table-container">
+    <table class="decision-table">
+      <thead>
+        <tr>
+          <th>Decision</th>
+          <th>Alternative</th>
+          <th>Why chosen</th>
+          <th>Consequence</th>
+        </tr>
+      </thead>
+      <tbody>
+        {decisions.map((decision) => (
+          <tr>
+            <td data-label="Decision">{decision.decision}</td>
+            <td data-label="Alternative">{decision.alternative}</td>
+            <td data-label="Why chosen">{decision.reason}</td>
+            <td data-label="Consequence">{decision.consequence}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .decision-table-wrapper {
+    margin: var(--space-xl) 0;
+  }
+
+  .decision-table__title {
+    margin-bottom: var(--space-md);
+    font-family: var(--font-heading);
+  }
+
+  .decision-table-container {
+    overflow-x: auto;
+  }
+
+  .decision-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+  }
+
+  .decision-table th,
+  .decision-table td {
+    text-align: left;
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+  }
+
+  .decision-table th {
+    background-color: rgba(0, 0, 0, 0.03);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .decision-table td {
+    color: var(--text-secondary);
+  }
+
+  .decision-table tr:hover td {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  @media (max-width: 768px) {
+    .decision-table thead {
+      display: none;
+    }
+
+    .decision-table tr {
+      display: block;
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border-light);
+    }
+
+    .decision-table td {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .decision-table td:last-child {
+      border-bottom: none;
+    }
+
+    .decision-table td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      width: 35%;
+      flex-shrink: 0;
+    }
+  }
+</style>
