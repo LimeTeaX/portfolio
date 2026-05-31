@@ -5,12 +5,15 @@ import { getCollection } from "astro:content";
 import "../styles/home.css";
 
 const caseStudies = await getCollection("caseStudies");
-const featuredCaseStudy =
-  caseStudies.find((c: any) => c.id.includes("ai-pair-programming")) ||
-  caseStudies[0];
+const sortedCaseStudies = caseStudies.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+const featuredCaseStudy = sortedCaseStudies[0];
 
 const allNotes = await getCollection("notes");
-const publishedNotes = allNotes.filter((note: any) => note.data.published === true);
+const publishedNotes = allNotes.filter(
+  (note: any) => note.data.published === true,
+);
 const recentNotes = publishedNotes.slice(0, 2);
 ---
 
