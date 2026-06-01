@@ -1,6 +1,6 @@
 ---
 title: "Building a Fullstack Task Tracker: From Auth to Dashboard"
-date: 2025-01-28
+date: 2026-05-31
 description: "Building a production-ready task management app with React, Node.js, PostgreSQL, and JWT authentication"
 techStack: ["React", "Node.js", "Express", "PostgreSQL", "TypeScript", "JWT"]
 constraint: "Learning fullstack development while building a real product"
